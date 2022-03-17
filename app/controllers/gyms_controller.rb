@@ -14,7 +14,7 @@ class GymsController < ApplicationController
     def show
         gym = Gym.find_by (params[:id])
             if gym
-                 render json: gym
+                 render json: gym, status: :found
             else
                 render json: errors.render_not_found
     end

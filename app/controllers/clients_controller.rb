@@ -1,11 +1,15 @@
 class ClientsController < ApplicationController
+rescue_from ActiveRecord::RecordNotFound, with: not_found
 
     def show
         client = Client.id
-            if client
-                render json: client.memberships.all.charge sum
-            else
-                render json: {error: "client not found"}, status: :not_found
+            client
+                render json: Client.find(params[:id])
+    end
+    private
+            
+    def not_found 
+        render json: {error: "Client not found"}
 
     end
 end
